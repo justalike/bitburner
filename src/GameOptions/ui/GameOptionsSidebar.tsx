@@ -172,12 +172,12 @@ export const GameOptionsSidebar = (props: IProps): React.ReactElement => {
                   <strong>{new Date(importData?.playerData?.lastSave ?? 0).toLocaleString()}</strong>
                 </>
               )}
-              {(importData?.playerData?.totalPlaytime ?? 0) > 0 && (
+              {Date.now() - (importData?.playerData?.startDate ?? 0) > 0 && (
                 <>
                   <br />
                   <br />
                   Total play time of imported game:{" "}
-                  {convertTimeMsToTimeElapsedString(importData?.playerData?.totalPlaytime ?? 0)}
+                  {convertTimeMsToTimeElapsedString(Date.now() - (importData?.playerData?.startDate ?? 0))}
                 </>
               )}
               <br />

@@ -74,23 +74,9 @@ const Engine: {
   start: () => void;
 } = {
   // Time variables (milliseconds unix epoch time)
-  _lastUpdate: new Date().getTime(),
+  _lastUpdate: Date.now(),
 
   updateGame: function (numCycles = 1) {
-    const time = numCycles * CONSTANTS._idleSpeed;
-    if (Player.totalPlaytime == null) {
-      Player.totalPlaytime = 0;
-    }
-    if (Player.playtimeSinceLastAug == null) {
-      Player.playtimeSinceLastAug = 0;
-    }
-    if (Player.playtimeSinceLastBitnode == null) {
-      Player.playtimeSinceLastBitnode = 0;
-    }
-    Player.totalPlaytime += time;
-    Player.playtimeSinceLastAug += time;
-    Player.playtimeSinceLastBitnode += time;
-
     Terminal.process(Router, Player, numCycles);
 
     Player.processWork(numCycles);
@@ -251,7 +237,7 @@ const Engine: {
       Player.applyEntropy(Player.entropy);
 
       // Calculate the number of cycles have elapsed while offline
-      Engine._lastUpdate = new Date().getTime();
+      Engine._lastUpdate = Date.now();
       const lastUpdate = Player.lastUpdate;
       const timeOffline = Engine._lastUpdate - lastUpdate;
       const numCyclesOffline = Math.floor(timeOffline / CONSTANTS._idleSpeed);
@@ -274,7 +260,8 @@ const Engine: {
       }
 
       let offlineReputation = 0;
-      const offlineHackingIncome = (Player.moneySourceA.hacking / Player.playtimeSinceLastAug) * timeOffline * 0.75;
+      const offlineHackingIncome =
+        (Player.moneySourceA.hacking / (Date.now() - Player.lastAugDate)) * timeOffline * 0.75;
       Player.gainMoney(offlineHackingIncome, "hacking");
       // Process offline progress
 
@@ -350,18 +337,6 @@ const Engine: {
 
       // Update total playtime
       const time = numCyclesOffline * CONSTANTS._idleSpeed;
-      if (Player.totalPlaytime == null) {
-        Player.totalPlaytime = 0;
-      }
-      if (Player.playtimeSinceLastAug == null) {
-        Player.playtimeSinceLastAug = 0;
-      }
-      if (Player.playtimeSinceLastBitnode == null) {
-        Player.playtimeSinceLastBitnode = 0;
-      }
-      Player.totalPlaytime += time;
-      Player.playtimeSinceLastAug += time;
-      Player.playtimeSinceLastBitnode += time;
 
       Player.lastUpdate = Engine._lastUpdate;
       Engine.start(); // Run main game loop and Scripts loop
@@ -418,7 +393,7 @@ const Engine: {
     if (diff > 0) {
       // Update the game engine by the calculated number of cycles
       Engine._lastUpdate = _thisUpdate - offset;
-      Player.lastUpdate = _thisUpdate - offset;
+      Player.lastUpdate = Engine._lastUpdate;
       Engine.updateGame(diff);
     }
     window.requestAnimationFrame(Engine.start);

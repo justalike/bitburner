@@ -68,8 +68,6 @@ export class PlayerObject implements IPlayer {
   money: number;
   moneySourceA: MoneySourceTracker;
   moneySourceB: MoneySourceTracker;
-  playtimeSinceLastAug: number;
-  playtimeSinceLastBitnode: number;
   purchasedServers: string[];
   queuedAugmentations: IPlayerOwnedAugmentation[];
   scriptProdSinceLastAug: number;
@@ -82,7 +80,9 @@ export class PlayerObject implements IPlayer {
   identifier: string;
   lastUpdate: number;
   lastSave: number;
-  totalPlaytime: number;
+  startDate: number;
+  lastAugDate: number;
+  lastBitnodeDate: number;
 
   hp: HP;
   skills: Skills;
@@ -265,10 +265,10 @@ export class PlayerObject implements IPlayer {
     //Used to store the last update time.
     this.lastUpdate = 0;
     this.lastSave = 0;
-    this.totalPlaytime = 0;
+    this.startDate = Date.now();
 
-    this.playtimeSinceLastAug = 0;
-    this.playtimeSinceLastBitnode = 0;
+    this.lastAugDate = Date.now();
+    this.lastBitnodeDate = Date.now();
 
     // Keep track of where money comes from
     this.moneySourceA = new MoneySourceTracker(); // Where money comes from since last-installed Augmentation

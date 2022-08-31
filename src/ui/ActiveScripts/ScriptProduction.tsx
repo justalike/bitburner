@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export function ScriptProduction(): React.ReactElement {
   const player = use.Player();
   const classes = useStyles();
-  const prodRateSinceLastAug = player.scriptProdSinceLastAug / (player.playtimeSinceLastAug / 1000);
+  const prodRateSinceLastAug = player.scriptProdSinceLastAug / ((Date.now() - player.lastAugDate) / 1000);
 
   return (
     <Table size="small" classes={{ root: classes.size }}>

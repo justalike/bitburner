@@ -508,7 +508,7 @@ function player(ctx: NetscriptContext, p: unknown): IPlayer {
     city: undefined,
     location: undefined,
     bitNodeN: undefined,
-    totalPlaytime: undefined,
+    startDate: undefined,
     playtimeSinceLastAug: undefined,
     playtimeSinceLastBitnode: undefined,
     jobs: undefined,

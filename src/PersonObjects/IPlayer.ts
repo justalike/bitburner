@@ -56,8 +56,6 @@ export interface IPlayer extends IPerson {
   readonly money: number;
   moneySourceA: MoneySourceTracker;
   moneySourceB: MoneySourceTracker;
-  playtimeSinceLastAug: number;
-  playtimeSinceLastBitnode: number;
   purchasedServers: string[];
   queuedAugmentations: IPlayerOwnedAugmentation[];
   scriptProdSinceLastAug: number;
@@ -68,7 +66,9 @@ export interface IPlayer extends IPerson {
   achievements: PlayerAchievement[];
   terminalCommandHistory: string[];
   lastUpdate: number;
-  totalPlaytime: number;
+  startDate: number;
+  lastAugDate: number;
+  lastBitnodeDate: number;
 
   hp: HP;
   skills: Skills;

@@ -61,9 +61,9 @@ interface Player {
   city: string;
   location: string;
   bitNodeN: number;
-  totalPlaytime: number;
-  playtimeSinceLastAug: number;
-  playtimeSinceLastBitnode: number;
+  startDate: number;
+  lastAugDate: number;
+  lastBitnodeDate: number;
   jobs: Record<string, string>;
   factions: string[];
   tor: boolean;

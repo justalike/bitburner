@@ -239,7 +239,7 @@ export function pushGameReady(): void {
   bridge.send("push-game-ready", {
     player: {
       identifier: Player.identifier,
-      playtime: Player.totalPlaytime,
+      playtime: Date.now() - Player.startDate,
       lastSave: Player.lastSave,
     },
     game: {

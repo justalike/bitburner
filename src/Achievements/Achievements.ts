@@ -589,7 +589,7 @@ export const achievements: IMap<Achievement> = {
     ...achievementData["FAST_BN"],
     Icon: "2DAYS",
     Visible: () => knowsAboutBitverse(Player),
-    Condition: () => bitNodeFinishedState() && Player.playtimeSinceLastBitnode < 1000 * 60 * 60 * 24 * 2,
+    Condition: () => bitNodeFinishedState() && Date.now() - Player.lastBitnodeDate < 1000 * 60 * 60 * 24 * 2,
   },
   CHALLENGE_BN1: {
     ...achievementData["CHALLENGE_BN1"],

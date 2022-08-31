@@ -1737,7 +1737,7 @@ const base: InternalAPI<NS> = {
       total += script.scriptRef.onlineMoneyMade / script.scriptRef.onlineRunningTime;
     }
 
-    return [total, Player.scriptProdSinceLastAug / (Player.playtimeSinceLastAug / 1000)];
+    return [total, Player.scriptProdSinceLastAug / ((Date.now() - Player.lastAugDate) / 1000)];
   },
   getScriptIncome:
     (ctx: NetscriptContext) =>
@@ -1787,7 +1787,7 @@ const base: InternalAPI<NS> = {
       return convertTimeMsToTimeElapsedString(milliseconds, milliPrecision);
     },
   getTimeSinceLastAug: () => (): number => {
-    return Player.playtimeSinceLastAug;
+    return Date.now() - Player.lastAugDate;
   },
   alert:
     (ctx: NetscriptContext) =>
@@ -1871,9 +1871,9 @@ const base: InternalAPI<NS> = {
       city: Player.city,
       location: Player.location,
       bitNodeN: Player.bitNodeN,
-      totalPlaytime: Player.totalPlaytime,
-      playtimeSinceLastAug: Player.playtimeSinceLastAug,
-      playtimeSinceLastBitnode: Player.playtimeSinceLastBitnode,
+      startDate: Player.startDate,
+      lastAugDate: Player.lastAugDate,
+      lastBitnodeDate: Player.lastBitnodeDate,
       jobs: {},
       factions: Player.factions.slice(),
       tor: Player.hasTorRouter(),

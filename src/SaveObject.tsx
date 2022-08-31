@@ -56,7 +56,7 @@ export interface ImportData {
 export interface ImportPlayerData {
   identifier: string;
   lastSave: number;
-  totalPlaytime: number;
+  startDate: number;
 
   money: number;
   hacking: number;
@@ -215,7 +215,7 @@ class BitburnerSaveObject {
     const playerData: ImportPlayerData = {
       identifier: importedPlayer.identifier,
       lastSave: importedPlayer.lastSave,
-      totalPlaytime: importedPlayer.totalPlaytime,
+      startDate: importedPlayer.startDate,
 
       money: importedPlayer.money,
       hacking: importedPlayer.skills.hacking,
@@ -652,6 +652,25 @@ function evaluateVersionCompatibility(ver: string | number): void {
         anySleeve.exp.intelligence += intExp;
         for (const field of removeSleeveFields) {
           delete sleeve[field];
+        }
+      }
+    }
+    if (ver < 26) {
+      if (anyPlayer.totalPlaytime) {
+        anyPlayer.startDate = Date.now() - anyPlayer.totalPlaytime;
+        delete anyPlayer["totalPlaytime"];
+      }
+      if (anyPlayer.playtimeSinceLastAug) {
+        anyPlayer.lastAugDate = Date.now() - anyPlayer.playtimeSinceLastAug;
+        delete anyPlayer["playtimeSinceLastAug"];
+      }
+      if (anyPlayer.playtimeSinceLastBitnode) {
+        anyPlayer.lastBitnodeDate = Date.now() - anyPlayer.playtimeSinceLastBitnode;
+        delete anyPlayer["playtimeSinceLastBitnode"];
+      }
+
+      for (const server of GetAllServers()) {
+        for (const s of server.scripts) {
         }
       }
     }

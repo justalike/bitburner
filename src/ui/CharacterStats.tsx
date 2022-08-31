@@ -218,12 +218,15 @@ export function CharacterStats(): React.ReactElement {
   }, []);
 
   const timeRows = [
-    ["Since last Augmentation installation", convertTimeMsToTimeElapsedString(player.playtimeSinceLastAug)],
+    ["Since last Augmentation installation", convertTimeMsToTimeElapsedString(Date.now() - player.lastAugDate)],
   ];
   if (player.sourceFiles.length > 0) {
-    timeRows.push(["Since last Bitnode destroyed", convertTimeMsToTimeElapsedString(player.playtimeSinceLastBitnode)]);
+    timeRows.push([
+      "Since last Bitnode destroyed",
+      convertTimeMsToTimeElapsedString(Date.now() - player.lastBitnodeDate),
+    ]);
   }
-  timeRows.push(["Total", convertTimeMsToTimeElapsedString(player.totalPlaytime)]);
+  timeRows.push(["Total", convertTimeMsToTimeElapsedString(Date.now() - player.startDate)]);
 
   let showBitNodeMults = false;
   if (player.sourceFileLvl(5) > 0) {

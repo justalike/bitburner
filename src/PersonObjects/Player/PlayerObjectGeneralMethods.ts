@@ -125,10 +125,10 @@ export function prestigeAugmentation(this: PlayerObject): void {
     }
   }
 
-  this.lastUpdate = new Date().getTime();
+  this.lastUpdate = Date.now();
+  this.lastAugDate = Date.now();
 
   // Statistics Trackers
-  this.playtimeSinceLastAug = 0;
   this.scriptProdSinceLastAug = 0;
   this.moneySourceA.reset();
 
@@ -176,7 +176,7 @@ export function prestigeSourceFile(this: IPlayer): void {
   this.corporation = null;
 
   this.moneySourceB.reset();
-  this.playtimeSinceLastBitnode = 0;
+  this.lastBitnodeDate = Date.now();
   this.augmentations = [];
 }
 

@@ -195,14 +195,16 @@ export function ImportSaveRoot(props: IProps): JSX.Element {
             </TableRow>
             <TableRow>
               <TableCell>Playtime</TableCell>
-              <TableCell>{convertTimeMsToTimeElapsedString(currentData.playerData?.totalPlaytime ?? 0)}</TableCell>
-              <TableCell>{convertTimeMsToTimeElapsedString(importData.playerData?.totalPlaytime ?? 0)}</TableCell>
               <TableCell>
-                {importData.playerData?.totalPlaytime !== currentData.playerData?.totalPlaytime && (
+                {convertTimeMsToTimeElapsedString(Date.now() - (currentData.playerData?.startDate ?? 0))}
+              </TableCell>
+              <TableCell>
+                {convertTimeMsToTimeElapsedString(Date.now() - (importData.playerData?.startDate ?? 0))}
+              </TableCell>
+              <TableCell>
+                {importData.playerData?.startDate !== currentData.playerData?.startDate && (
                   <ComparisonIcon
-                    isBetter={
-                      (importData.playerData?.totalPlaytime ?? 0) > (currentData.playerData?.totalPlaytime ?? 0)
-                    }
+                    isBetter={(importData.playerData?.startDate ?? 0) > (currentData.playerData?.startDate ?? 0)}
                   />
                 )}
               </TableCell>

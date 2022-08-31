@@ -142,7 +142,7 @@ const minPlay = 0;
 const maxPlay = 1e6;
 
 export function SlotMachine(props: IProps): React.ReactElement {
-  const [rng] = useState(new WHRNG(props.p.totalPlaytime));
+  const [rng] = useState(new WHRNG(Date.now() - props.p.startDate));
   const [index, setIndex] = useState<number[]>([0, 0, 0, 0, 0]);
   const [locks, setLocks] = useState<number[]>([0, 0, 0, 0, 0]);
   const [investment, setInvestment] = useState(1000);
