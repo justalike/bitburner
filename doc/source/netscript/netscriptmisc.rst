@@ -57,7 +57,7 @@ And the data in port 1 will look like::
 
     [3, 4, 5, 6, 7, 8, 9]
 
-.. warning:: In :ref:`netscriptjs`, do not trying writing base
+.. warning:: In :ref:`netscriptjs`, do not try to write base
              `Promises <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise>`_
              to a port.
 
